@@ -1,0 +1,11 @@
+[copr:copr.fedorainfracloud.org:azandure:clipse]
+name=Copr repo for clipse owned by azandure
+baseurl=https://download.copr.fedorainfracloud.org/results/azandure/clipse/fedora-$releasever-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://download.copr.fedorainfracloud.org/results/azandure/clipse/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
+
