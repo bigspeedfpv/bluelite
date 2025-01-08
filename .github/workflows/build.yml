@@ -42,6 +42,8 @@ jobs:
           containerfiles: |
             ./Containerfile
           image: ${{ env.IMAGE_NAME }}
+          labels: ${{ steps.meta.outputs.labels }}
+          oci: false
           tags: |
             ${{ steps.generate-tags.outputs.sha_short }}
             ${{ steps.generate-tags.outputs.date }}
