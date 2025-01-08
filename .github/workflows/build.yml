@@ -7,6 +7,7 @@ on:
       - main
 
 env:
+  IMAGE_NAME: bluelite
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
 
 jobs:
@@ -21,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Generate tag
-        id: generate-tag
+        id: generate-tags
         run: |
           echo "sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
           echo "date=$(date +%m%d%Y)" >> $GITHUB_OUTPUT
@@ -30,7 +31,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            bluelite
+            ${{ env.IMAGE_NAME }}
           labels: |
             io.artifacthub.package.readme-url=https://raw.githubusercontent.com/bigspeedfpv/system/main/README.md
 
@@ -40,11 +41,11 @@ jobs:
         with:
           containerfiles: |
             ./Containerfile
-          image: bluelite
+          image: ${{ env.IMAGE_NAME }}
           labels: ${{ steps.meta.outputs.labels }}
           oci: false
           tags: |
-            ${{ steps.generate-tags.outputs.sha_short }}
+            ${{ steps.generate-tags.outputs.sha }}
             ${{ steps.generate-tags.outputs.date }}
 
       - name: Push
